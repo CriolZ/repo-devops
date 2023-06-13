@@ -1,0 +1,77 @@
+version: '3.8'
+services:
+
+  database:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MARIADB_DATABASE: bdd
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+    volumes:
+      - ./bdd.sql:/docker-entrypoint-initdb.d/bdd.sql
+    networks:
+      - mynetwork
+
+  wp1:
+    image: wordpress:latest
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: bdd 
+    networks:
+      - mynetwork
+
+  wp2:
+    image: wordpress:latest
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: bdd
+    networks:
+      - mynetwork
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_USER: wordpress
+      PMA_PASSWORD: wordpress
+    networks:
+      - mynetwork
+      
+  portainer-ui:
+    image: portainer/portainer-ce:latest
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - mynetwork
+
+  webload:
+    build:
+      context: .
+      dockerfile: Dockerfile_front
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    environment:
+      - WP1_IP=wp1
+      - WP2_IP=wp2
+    ports:
+      - 80:80
+    depends_on:
+      - wp1
+      - wp2
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+ 
