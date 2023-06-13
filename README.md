@@ -11,9 +11,9 @@ Ce projet déploie un Wordpress en tant que front-end, une base de données Mari
 ## Guide d'installation 
 1. Ouvrez Docker Desktop sur votre machine ainsi qu'un cmd en mode administrateur.
 
-2. Installer le docker-compose sur le github, le déplacer où on le souhaite.
+2. Créer un dossier spécialement pour les fichiers à installer sur votre machine.
 
-3. Installer le **Dockerfile_front**, **haproxy.cfg** et **bdd.sql** et le placer au même endroit que votre docker-compose.
+3. Installer le  **docker-compose**, **Dockerfile_front**, **haproxy.cfg** et **bdd.sql** qui se trouvent dans le dossier **devops** sur le github.
 
 4. Faire **docker compose -f .\docker-compose.yml up** via le cmd dans le dossier où se situe vos deux fichiers. 
 
