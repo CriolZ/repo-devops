@@ -11,7 +11,7 @@ Ce projet déploie un Wordpress en tant que front-end, une base de données Mari
 ## Guide d'installation 
 1. Ouvrez Docker Desktop sur votre machine ainsi qu'un cmd en mode administrateur.
 
-2. Créer un dossier spécialement pour les fichiers à installer sur votre machine.
+2. Créer un dossier spécifiquement pour les fichiers à installer sur votre machine.
 
 3. Installer le  **docker-compose**, **Dockerfile_front**, **haproxy.cfg** et **bdd.sql** qui se trouvent dans le dossier **devops** sur le github.
 
